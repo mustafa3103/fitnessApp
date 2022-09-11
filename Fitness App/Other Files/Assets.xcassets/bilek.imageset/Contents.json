@@ -1,6 +1,7 @@
 {
-  "colors" : [
+  "images" : [
     {
+      "filename" : "bilek.jpeg",
       "idiom" : "universal"
     }
   ],
