@@ -6,24 +6,52 @@
 //
 
 import UIKit
+import WebKit
 
 class showVideoViewController: UIViewController {
 
+    private let webView: WKWebView = {
+        let preferences = WKWebpagePreferences()
+        preferences.allowsContentJavaScript = true
+        let configuration = WKWebViewConfiguration()
+        configuration.defaultWebpagePreferences = preferences
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        
+        return webView
+    }()
+    
+    var urlString: String = "https://www.google.com"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        view.addSubview(webView)
+        let url = URL(string: urlString)
+        if let url = url {
+            webView.load(URLRequest(url: url))
+        }
+        configureButtons()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        webView.frame = view.bounds
     }
-    */
-
+    
+    private func configureButtons() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapRefresh))
+    }
+    
+    @objc func didTapDone() {
+        dismiss(animated: true)
+    }
+    
+    @objc func didTapRefresh() {
+        
+        let currentUrl = URL(string: urlString)
+        webView.load(URLRequest(url: currentUrl!))
+    }
 }

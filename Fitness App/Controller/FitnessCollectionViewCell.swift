@@ -9,4 +9,7 @@ import UIKit
 
 class FitnessCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet var imageViewCollection: UIImageView!
+    @IBOutlet var textLabelCollection: UILabel!
+    
 }

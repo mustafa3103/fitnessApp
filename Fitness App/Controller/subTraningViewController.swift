@@ -9,21 +9,35 @@ import UIKit
 
 class subTraningViewController: UIViewController {
 
+    @IBOutlet var trainingTitle: UILabel!
+    @IBOutlet var traningInfo: UITextView!
+    @IBOutlet var playImage: UIImageView!
+    
+    var selectedTraing: Tranings?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        trainingTitle.text = selectedTraing?.traningName
+        traningInfo.text = selectedTraing?.traningExplanation
+        
+        playImage.isUserInteractionEnabled = true
+        let imageTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(playButtonPressed))
+        playImage.addGestureRecognizer(imageTapRecognizer)
+    }
+
+    @objc func playButtonPressed() {
+        performSegue(withIdentifier: "toShowVideo", sender: self)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "toShowVideo" {
+            let vc = segue.destination as! showVideoViewController
+            if let selectedTraing = selectedTraing {
+                vc.urlString = selectedTraing.videoUrl
+            }
+           
+        }
     }
-    */
-
 }

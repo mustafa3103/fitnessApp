@@ -12,7 +12,6 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -22,6 +21,8 @@ class FirstViewController: UIViewController {
         
         navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
+        navBar.prefersLargeTitles = true
+
     }
 }
 
